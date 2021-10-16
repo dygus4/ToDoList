@@ -10,7 +10,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.socket = io.connect('http://localhost:8000', {
+     this.socket = io.connect('http://localhost:8000', {
       transports: ['websocket'],
     });
     this.socket.on('addTask', task => this.addTask(task));
@@ -27,8 +27,8 @@ class App extends React.Component {
     this.setState({ tasks: [...this.state.tasks, task] });
   }
 
-  submitForm = e => {
-    e.preventDefault();
+  submitForm = event => {
+    event.preventDefault();
     const newTask = { id: uuidv4(), name: this.state.taskName };
     this.addTask(newTask);
     this.socket.emit('addTask', newTask);
@@ -62,7 +62,7 @@ class App extends React.Component {
 
           <form
             id="add-task-form"
-            onSubmit={e => this.submitForm(e)}
+            onSubmit={event => this.submitForm(event)}
           >
             <input
               className="text-input"
@@ -71,7 +71,7 @@ class App extends React.Component {
               placeholder="Type your description"
               id="task-name"
               value={taskName}
-              onChange={e => this.setState({ taskName: e.target.value })}
+              onChange={event => this.setState({ taskName: event.target.value })}
             />
             <button className="btn" type="submit">Add</button>
           </form>
